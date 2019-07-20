@@ -1,0 +1,36 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+<!-- 
+	<context:property-placeholder location="classpath:application.properties"></context:property-placeholder>
+ -->	
+	<bean id="appProperties"
+    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations">
+        <list>
+            <value>classpath:application.properties</value>
+        </list>
+    </property>
+	</bean>
+	
+	
+	
+	<bean id="myFortuneService" class="com.spr_hib_begin.springDemo1.HappyFortuneService">
+	</bean>
+   <bean id = "myCoach" class = "com.spr_hib_begin.springDemo1.BaseballCoach">
+   <constructor-arg ref="myFortuneService"></constructor-arg>
+   </bean>
+   <bean id="myCricketCoach" class="com.spr_hib_begin.springDemo1.CricketCoach">
+   	 <property name="fortuneService" ref="myFortuneService"></property>
+   	 <!-- 
+   	 <property name="emailAddress" value="ss.s@yahoo.com"></property>
+   	 <property name="team" value="Sunrisers Hyderabad"></property>
+   	  -->
+   	 <property name="emailAddress" value="${foo.email}"></property>
+   	 <property name="team" value="${foo.team}"></property>
+   	  
+    </bean>
+</beans>
